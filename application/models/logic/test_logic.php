@@ -10,11 +10,14 @@ class Test_logic extends Base_logic_model
         parent::__construct();
 
         $this->CI->load->model('dao/test_model');
+        $this->CI->load->model('dao/works_model');
     }
 
     public function test()
     {
         $result = $this->CI->test_model->get_by_primary_key();
+
+        $result = $this->CI->works_model->get();
 
         return $result;
     }

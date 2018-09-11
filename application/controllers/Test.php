@@ -9,7 +9,7 @@ class Test extends CI_Controller
         if (!file_exists(APPPATH . 'views/test/' . __FUNCTION__ . '.php')) {
             show_404();
         }
-        $data['title'] = ucfirst(__FUNCTION__);
+        $data['title'] = ucfirst(__FUNCTION__ . "!!");
 
         $this->load->view('templates/header', $data);
         $this->load->view('test/' . __FUNCTION__, $data);

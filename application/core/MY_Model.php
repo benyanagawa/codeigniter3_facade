@@ -46,7 +46,7 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * 取得する
+     * 範囲を指定して取得する
      * @param  integer  $limit          リミット
      * @param  integer  $offset         オフセット
      * @param  boolean  $without_delete 削除フラグを除外するか
@@ -91,7 +91,12 @@ class MY_Model extends CI_Model
         return $this->db->get_record($this->table_name)->result_array();
     }
 
-    // リストの取得
+
+    /**
+     * レコードをすべて取得する
+     * @param  boolean $without_delete 削除フラグを除外するか
+     * @return array                   レコード配列
+     */
     public function get_list($without_delete = true)
     {
         if (empty($this->table_name)) {
@@ -107,7 +112,11 @@ class MY_Model extends CI_Model
 
     }
 
-    // レコードの挿入
+    /**
+     * レコードの挿入
+     * @param  array   $data 挿入データ
+     * @return integer       挿入件数
+     */
     public function insert($data = null)
     {
         if (empty($this->table_name)) {
@@ -116,6 +125,8 @@ class MY_Model extends CI_Model
 
         return (int) $this->db->insert($this->table_name, $data);
     }
+
+
 
     public function update($data = null, $where = null, $limit = null)
     {
@@ -131,7 +142,15 @@ class MY_Model extends CI_Model
             $this->db->where($where);
         }
 
-        // 日付を自動で入れる。 date helperを使って nowから変換
+        // 日付を自動で入れる。 time helper使用
+        $update_time = '';
+        if (isset($this->CI->current_time)) {
+            $update_time = get_date('Y-m-d H:i:s', $this->CI->current_time);
+        } else {
+            $update_time = get_date('Y-m-d H:i:s');
+        }
+        $this->db->set('update_at', $update_time);
 
+        return $this->db->update($this->table_name);
     }
 }

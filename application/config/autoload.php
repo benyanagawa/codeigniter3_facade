@@ -60,6 +60,7 @@ $autoload['packages'] = array();
 */
 $autoload['libraries'] = array(
     'database',
+    'session',
     'util/TimeLogic'
 );
 
@@ -93,6 +94,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 $autoload['helper'] = array(
+    'url',
     'time'
 );
 

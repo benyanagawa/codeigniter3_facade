@@ -127,7 +127,13 @@ class MY_Model extends CI_Model
     }
 
 
-
+    /**
+     * レコードの更新
+     * @param  array   $data  こうし
+     * @param  array   $where where句
+     * @param  integer $limit リミット
+     * @return integer        更新件数
+     */
     public function update($data = null, $where = null, $limit = null)
     {
         if (empty($this->table_name)) {

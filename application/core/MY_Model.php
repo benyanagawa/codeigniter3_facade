@@ -18,7 +18,8 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * 対象テーブルを切り替えた場合にコネクションを再設定する
+     * model名からテーブル名をセットする
+     * @param string $table_name テーブル名
      */
     public function set_table_name($table_name)
     {
@@ -44,7 +45,13 @@ class MY_Model extends CI_Model
         }
     }
 
-    // 取得
+    /**
+     * 取得する
+     * @param  integer  $limit          リミット
+     * @param  integer  $offset         オフセット
+     * @param  boolean  $without_delete 削除フラグを除外するか
+     * @return array                    レコード配列
+     */
     public function get($limit = null, $offset = null, $without_delete = true)
     {
         if (empty($this->table_name)) {
@@ -60,6 +67,12 @@ class MY_Model extends CI_Model
 
     }
 
+    /**
+     * レコードを1件取得する
+     * @param  array   $where          key valueでのwhere
+     * @param  boolean $without_delete 削除フラグを除外するか
+     * @return array                   レコード配列
+     */
     public function get_record($where = null, $without_delete = true)
     {
         if (empty($this->table_name)) {
@@ -104,21 +117,21 @@ class MY_Model extends CI_Model
         return (int) $this->db->insert($this->table_name, $data);
     }
 
-    // public function update($data = null, $where = null, $limit = null)
-    // {
-    //     if (empty($this->table_name)) {
-    //         throw new Exception(__CLASS__ . ':行数:' . __LINE__ . " this Model doesn't use Database.");
-    //     }
+    public function update($data = null, $where = null, $limit = null)
+    {
+        if (empty($this->table_name)) {
+            throw new Exception(__CLASS__ . ':行数:' . __LINE__ . " this Model doesn't use Database.");
+        }
 
-    //     if (!empty($data)) {
-    //         $this->db->set($data);
-    //     }
+        if (!empty($data)) {
+            $this->db->set($data);
+        }
 
-    //     if (!empty($where)) {
-    //         $this->db->where($where);
-    //     }
+        if (!empty($where)) {
+            $this->db->where($where);
+        }
 
-    //     // 日付を自動で入れる。 date helperを使って nowから変換
+        // 日付を自動で入れる。 date helperを使って nowから変換
 
-    // }
+    }
 }

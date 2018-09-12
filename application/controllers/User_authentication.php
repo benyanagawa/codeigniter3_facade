@@ -10,13 +10,13 @@ class User_Authentication extends CI_Controller
 
     public function index()
     {
-        var_dump($this->session->userdata('loggedIn'));
+        $data = $this->user_authentication_facade->index();
+
         //redirect to profile page if user already logged in
         if ($this->session->userdata('loggedIn') == true) {
             redirect('user_authentication/profile/');
         }
 
-        $data = $this->user_authentication_facade->index();
 
         // if (isset($_GET['code'])) {
         //     //authenticate user
